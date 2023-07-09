@@ -49,7 +49,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ),
       ),
-      body: QuotesPage(),
+      body: const QuotesPage(),
     );
   }
 }
