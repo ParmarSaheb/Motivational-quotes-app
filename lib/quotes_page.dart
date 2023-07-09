@@ -27,9 +27,40 @@ class _QuotesPageState extends State<QuotesPage> {
         list = rest.map<Quotes>((json) => Quotes.fromJson(json)).toList();
       }
     } catch (e) {
-      print(e);
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: ((context) => SafeArea(
+                child: Scaffold(
+                  body: Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text(
+                          "Cant able to fetch data..!",
+                          style: GoogleFonts.poppins(
+                            color: Colors.red,
+                            fontSize: 30,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Text(
+                          "Make sure you have good internet connection",
+                          style: GoogleFonts.poppins(
+                            color: const Color.fromARGB(255, 0, 0, 0),
+                            fontSize: 16,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              )),
+        ),
+      );
     }
-    ;
+
     return list;
   }
 
@@ -72,24 +103,27 @@ class DisplayList extends StatelessWidget {
       itemCount: quotesList.length,
       itemBuilder: ((context, index) {
         return Card(
-          elevation: 19,
-          child: Dismissible(
-            key: Key("quote$index"),
-            child: ListTile(
-              tileColor: const Color.fromARGB(255, 216, 255, 251),
-              title: Text(
-                quotesList[index].quote,
-                style: GoogleFonts.poppins(
-                  fontSize: 20,
-                ),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(3)),
+          elevation: 4,
+          child: ListTile(
+            tileColor: const Color.fromARGB(255, 216, 255, 251),
+            title: Text(
+              quotesList[index].quote,
+              style: GoogleFonts.poppins(
+                fontSize: 20,
               ),
-              subtitle: Text(
-                quotesList[index].author,
-                style: GoogleFonts.poppins(
-                  fontSize: 10,
-                  color: Colors.black.withOpacity(0.5),
+            ),
+            subtitle: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Text(
+                  "- ${quotesList[index].author}",
+                  style: GoogleFonts.poppins(
+                    fontSize: 15,
+                    color: Colors.black.withOpacity(0.5),
+                  ),
                 ),
-              ),
+              ],
             ),
           ),
         );
