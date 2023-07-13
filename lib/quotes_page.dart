@@ -35,7 +35,6 @@ class _QuotesPageState extends State<QuotesPage> {
                   body: Center(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Text(
                           "Cant able to fetch data..!",
@@ -46,7 +45,7 @@ class _QuotesPageState extends State<QuotesPage> {
                           ),
                         ),
                         Text(
-                          "Make sure you have good internet connection",
+                          e.toString(),
                           style: GoogleFonts.poppins(
                             color: const Color.fromARGB(255, 0, 0, 0),
                             fontSize: 16,
@@ -103,15 +102,32 @@ class DisplayList extends StatelessWidget {
       itemCount: quotesList.length,
       itemBuilder: ((context, index) {
         return Card(
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(3)),
+          margin: EdgeInsets.only(right: 0),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
           elevation: 4,
           child: ListTile(
             tileColor: const Color.fromARGB(255, 216, 255, 251),
-            title: Text(
-              quotesList[index].quote,
-              style: GoogleFonts.poppins(
-                fontSize: 20,
-              ),
+            title: Row(
+              children: [
+                Expanded(
+                  child: Text(
+                    quotesList[index].quote,
+                    style: GoogleFonts.poppins(
+                      fontSize: 20,
+                    ),
+                  ),
+                ),
+                PopupMenuButton(itemBuilder: ((context) {
+                  return [
+                    const PopupMenuItem(
+                        child: ListTile(
+                      title: Text("Copy"),
+                      leading: Icon(Icons.content_copy),
+                    ))
+                  ];
+                }))
+              ],
             ),
             subtitle: Row(
               mainAxisAlignment: MainAxisAlignment.end,
