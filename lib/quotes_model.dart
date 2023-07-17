@@ -1,6 +1,7 @@
 class Quotes {
-  final String quote;
-  final String author;
+  late String quote;
+  late String author;
+  bool isFav = false;
 
   Quotes({
     required this.quote,
